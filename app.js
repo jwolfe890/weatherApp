@@ -9,10 +9,15 @@ const argv = yargs
            describe: 'Address to fetch weather for',
            string: true   
        }
-    }) 
+    })
+    .help()
+    .alias('help', 'h')
+    .argv;  
+
+let encodedAddress = encodeURIComponent(argv.address);
 
 request({
-    url: 'https://maps.googleapis.com/maps/api/geocode/json?address=5685%20SE%20Lamay%20Drive',
+    url: `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}`,
     json: true 
 }, (error, response, body) => {
     console.log(`Address: ${body.results[0].formatted_address}`);
